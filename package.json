@@ -1,8 +1,8 @@
 {
-  "name": "react-native-calendars",
+  "name": "react-native-calendars-persian",
   "version": "1.20.0",
   "main": "src/index.js",
-  "description": "React Native Calendar Components",
+  "description": "React Native Calendar Components + Jalali (Persian) Calendar Support",
   "scripts": {
     "test": "jasmine src/*.spec.js && npm run lint",
     "lint": "eslint src/ example/src"
@@ -14,7 +14,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "author": "Wix.com",
+  "author": "Hadi Mostafapour",
   "license": "MIT",
   "dependencies": {
     "lodash.get": "^4.4.2",
