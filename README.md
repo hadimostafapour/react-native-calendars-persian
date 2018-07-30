@@ -6,25 +6,10 @@ This module includes various customizable react native calendar components.
 
 The package is both **Android** and **iOS** compatible.
 
-## Try it out
-
-You can run example module by performing these steps:
-
-```
-$ git clone git@github.com:wix/react-native-calendars.git
-$ cd react-native-calendars/example
-$ npm install
-$ react-native run-ios
-```
-
-You can check example screens source code in [example module screens](https://github.com/wix-private/wix-react-native-calendar/tree/master/example/src/screens)
-
-This project is compatible with Expo/CRNA (without ejecting), and the examples have been [published on Expo](https://expo.io/@community/react-native-calendars-example)
-
 ## Installation
 
 ```
-$ npm install --save react-native-calendars
+$ npm install --save react-native-calendars-persian
 ```
 
 The solution is implemented in JavaScript so no native module linking is required.
@@ -44,7 +29,7 @@ Since convert/compare dates cause performance issues; In order to solve this on 
 
 ## Usage
 
-`import {` [Calendar](#calendar), [CalendarList](#calendarlist), [Agenda](#agenda) `} from 'react-native-calendars';`
+`import {` [Calendar](#calendar), [CalendarList](#calendarlist), [Agenda](#agenda) `} from 'react-native-calendars-persian';`
 
 All parameters for components are optional. By default the month of current local date will be displayed.
 
@@ -65,7 +50,7 @@ Parameters that require date types accept YYYY-MM-DD formated datestrings, JavaS
 Calendars can be localized by adding custom locales to `LocaleConfig` object:
 
 ```javascript
-import {LocaleConfig} from 'react-native-calendars';
+import {LocaleConfig} from 'react-native-calendars-persian';
 
 LocaleConfig.locales['fr'] = {
   monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
@@ -309,11 +294,11 @@ The loading indicator next to month name will be displayed if `<Calendar />` has
 
 If you want to have complete control over calendar styles you can do it by overriding default style.js files. For example, if you want to override calendar header style first you have to find stylesheet id for this file:
 
-https://github.com/wix/react-native-calendars/blob/master/src/calendar/header/style.js#L4
+https://github.com/wix/react-native-calendars-persian/blob/master/src/calendar/header/style.js#L4
 
 In this case it is 'stylesheet.calendar.header'. Next you can add overriding stylesheet to your theme with this id.
 
-https://github.com/wix/react-native-calendars/blob/master/example/src/screens/calendars.js#L56
+https://github.com/wix/react-native-calendars-persian/blob/master/example/src/screens/calendars.js#L56
 
 ```javascript
 theme={{
