@@ -1,7 +1,6 @@
-# React Native Calendars ✨ 🗓️ 📆
+# React Native Calendars + Jalali (Persian) Support ✨ 🗓️ 📆
 
-[![Version](https://img.shields.io/npm/v/react-native-calendars.svg)](https://www.npmjs.com/package/react-native-calendars)
-[![Build Status](https://travis-ci.org/wix/react-native-calendars.svg?branch=master)](https://travis-ci.org/wix/react-native-calendars)
+[![Version](https://img.shields.io/npm/v/react-native-calendars-persian.svg)](https://www.npmjs.com/package/react-native-calendars-persian)
 
 This module includes various customizable react native calendar components.
 
@@ -29,6 +28,19 @@ $ npm install --save react-native-calendars
 ```
 
 The solution is implemented in JavaScript so no native module linking is required.
+
+## Jalali (Persian Support)
+
+This repo is a fork of [Wix: react-native-calendars](https://github.com/wix/react-native-calendars), Actually to keep repo update based on main repo, I just done  changes to display dates in jalali and most of codes and api are same as main repo.
+
+Since convert/compare dates cause performance issues; In order to solve this on iOS devices I used `Intl` to compare dates but android does not support `Intl` then caching saved her life.
+
+```
+<Agenda
+  jalali={true}
+  firstDay={6}
+/>
+```
 
 ## Usage
 
