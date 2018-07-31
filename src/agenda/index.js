@@ -97,10 +97,9 @@ export default class AgendaView extends Component {
   constructor(props) {
     super(props);
 
-      // # jalali
-      if(props.jalali) {
-          XDate.defaultLocale = 'fa';
-      }
+    if(props.jalali) {
+      XDate.defaultLocale = 'fa';
+    }
 
     this.styles = styleConstructor(props.theme);
     const windowSize = Dimensions.get('window');
@@ -284,6 +283,7 @@ export default class AgendaView extends Component {
   renderReservations() {
     return (
       <ReservationsList
+        jalali={this.props.jalali}
         refreshControl={this.props.refreshControl}
         refreshing={this.props.refreshing}
         onRefresh={this.props.onRefresh}

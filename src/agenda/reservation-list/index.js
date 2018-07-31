@@ -13,6 +13,7 @@ import styleConstructor from './style';
 
 class ReactComp extends Component {
   static propTypes = {
+    jalali: PropTypes.bool,
     // specify your item comparison function for increased performance
     rowHasChanged: PropTypes.func,
     // specify how each item should be rendered in agenda
@@ -113,6 +114,7 @@ class ReactComp extends Component {
     return (
       <View onLayout={this.onRowLayoutChange.bind(this, index)}>
         <Reservation
+          jalali={this.props.jalali}
           item={item}
           renderItem={this.props.renderItem}
           renderDay={this.props.renderDay}
