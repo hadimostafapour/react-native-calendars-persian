@@ -14,6 +14,7 @@ import styleConstructor from './style';
 class ReactComp extends Component {
   static propTypes = {
     jalali: PropTypes.bool,
+    footerComponent: PropTypes.func,
     // specify your item comparison function for increased performance
     rowHasChanged: PropTypes.func,
     // specify how each item should be rendered in agenda
@@ -185,7 +186,8 @@ class ReactComp extends Component {
   render() {
     if (!this.props.reservations || !this.props.reservations[this.props.selectedDay.toString('yyyy-MM-dd')]) {
       if (this.props.renderEmptyData) {
-        return this.props.renderEmptyData();
+        // Pass selected day
+        return this.props.renderEmptyData(this.props.selectedDay);
       }
       return (<ActivityIndicator style={{marginTop: 80}}/>);
     }
@@ -199,6 +201,7 @@ class ReactComp extends Component {
         onScroll={this.onScroll.bind(this)}
         showsVerticalScrollIndicator={false}
         scrollEventThrottle={200}
+        ListFooterComponent={this.props.footerComponent}
         onMoveShouldSetResponderCapture={() => {this.onListTouch(); return false;}}
         keyExtractor={(item, index) => String(index)}
         refreshControl={this.props.refreshControl}

@@ -26,6 +26,9 @@ export default class AgendaView extends Component {
   static propTypes = {
 
     jalali: PropTypes.bool,
+    ignoreOnLayout: PropTypes.bool,
+    footerComponent: PropTypes.func,
+    reservationFooterComponent: PropTypes.func,
 
     // Specify theme properties to override specific styles for calendar parts. Default = {}
     theme: PropTypes.object,
@@ -98,7 +101,7 @@ export default class AgendaView extends Component {
     super(props);
 
     if(props.jalali) {
-      XDate.defaultLocale = 'fa';
+        XDate.defaultLocale = 'fa';
     }
 
     this.styles = styleConstructor(props.theme);
@@ -284,6 +287,7 @@ export default class AgendaView extends Component {
     return (
       <ReservationsList
         jalali={this.props.jalali}
+        footerComponent={this.props.reservationFooterComponent}
         refreshControl={this.props.refreshControl}
         refreshing={this.props.refreshing}
         onRefresh={this.props.onRefresh}
@@ -393,7 +397,7 @@ export default class AgendaView extends Component {
     }
 
     return (
-      <View onLayout={this.onLayout} style={[this.props.style, {flex: 1, overflow: 'hidden'}]}>
+      <View onLayout={this.props.ignoreOnLayout ? undefined : this.onLayout} style={[this.props.style, {flex: 1, overflow: 'hidden'}]}>
         <View style={this.styles.reservations}>
           {this.renderReservations()}
         </View>
@@ -401,9 +405,11 @@ export default class AgendaView extends Component {
           <Animated.View style={{flex:1, transform: [{ translateY: contentTranslate }]}}>
             <CalendarList
               jalali={this.props.jalali}
-              onLayout={() => {
+              onLayout={this.props.ignoreOnLayout ? undefined : () => {
                 this.calendar.scrollToDay(this.state.selectedDay.clone(), this.calendarOffset(), false);
               }}
+              calendarWidth={this.viewWidth}
+              footerComponent={this.props.footerComponent}
               theme={this.props.theme}
               onVisibleMonthsChange={this.onVisibleMonthsChange.bind(this)}
               ref={(c) => this.calendar = c}
@@ -451,7 +457,7 @@ export default class AgendaView extends Component {
             { useNativeDriver: true },
           )}
         >
-          <View style={{height: agendaHeight + KNOB_HEIGHT}} onLayout={this.onScrollPadLayout} />
+          <View style={{height: agendaHeight + KNOB_HEIGHT}} onLayout={this.props.ignoreOnLayout ? undefined : this.onScrollPadLayout} />
         </Animated.ScrollView>
       </View>
     );

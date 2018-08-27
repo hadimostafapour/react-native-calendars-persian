@@ -37,7 +37,7 @@ class ReservationListItem extends Component {
     }
     const today = dateutils.sameDate(date, XDate()) ? this.styles.today : undefined;
     if (date) {
-      const formattedDate = this.props.jalali ? dateutils.pDateDay(date) : date.getDate();
+      let formattedDate = this.props.jalali ? dateutils.pDateDay(date) : date.getDate();
       return (
         <View style={this.styles.day}>
           <Text allowFontScaling={false} style={[this.styles.dayNum, today]}>{formattedDate}</Text>

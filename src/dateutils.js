@@ -1,6 +1,6 @@
 const XDate = require('xdate');
 const PersianDateUtils = require('./persian/dateutils');
-const {pDate, pDateDay, pSetLocale, pDiffMonths, sameMonth, month} = PersianDateUtils;
+const {pFormat, pDateDay, pSetLocale, pDiffMonths, sameMonth, month} = PersianDateUtils;
 
 pSetLocale();
 
@@ -94,6 +94,6 @@ module.exports = {
   isLTE,
   isGTE,
   pDiffMonths,
-  pDate,
+  pFormat,
   pDateDay
 };

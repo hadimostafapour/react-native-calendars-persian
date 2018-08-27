@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import XDate from 'xdate';
 import PropTypes from 'prop-types';
 import styleConstructor from './style';
-import { weekDayNames, pDate} from '../../dateutils';
+import { weekDayNames, pFormat} from '../../dateutils';
 import {
   CHANGE_MONTH_LEFT_ARROW,
   CHANGE_MONTH_RIGHT_ARROW
@@ -28,7 +28,7 @@ class CalendarHeader extends Component {
 
   static defaultProps = {
     monthFormat: 'MMMM yyyy',
-    jalaliMonthFormat: 'MMMM YYYY'
+    jalaliMonthFormat: 'jMMMM jYYYY'
   };
 
   constructor(props) {
@@ -122,7 +122,7 @@ class CalendarHeader extends Component {
     }
 
     const formattedMonth = this.props.jalali
-        ? pDate(this.props.month).format(this.props.jalaliMonthFormat)
+        ? pFormat(this.props.month, this.props.jalaliMonthFormat)
         : this.props.month.toString(this.props.monthFormat);
 
     return (

@@ -1,21 +1,20 @@
 const XDate = require('xdate');
-const PDate = require('persian-date');
-const JDate = require('./jdate');
+const moment = require('moment-jalaali');
 
 const cache = {
   sameMonth: {},
-  dates: {}
+  dates: {},
+  months: {}
 };
-
 
 let isIntlSupported = typeof Intl !== 'undefined' && typeof Intl.DateTimeFormat === 'function';
 
-function pDate(xd) {
-  return new PDate(xd instanceof XDate ? xd.toDate() : xd);
+function pFormat(xd, format) {
+    return toPersian(moment(typeof xd === 'string' ? xd : xd.toDate()).format(format));
 }
 
-function jDate(xd) {
-  return new JDate(new Date(xd.getFullYear(), xd.getMonth(), xd.getDate()));
+function pMoment(xd){
+  return moment(xd.toDate());
 }
 
 var pSetLocale = function () {
@@ -61,19 +60,25 @@ var pSetLocale = function () {
   };
 };
 
+function toPersian(string){
+  return (string + '').replace(/\d/g, function (i) {
+    return String.fromCharCode(parseInt(i) + 1776);
+  });
+}
+
 function pDateDay(xd) {
 
-  if (isIntlSupported) {
-    const options = {day: 'numeric'};
-    return new Intl.DateTimeFormat('fa-IR', options).format(xd.toDate());
-  }
-
-  const key = xd.toString();
-  if (cache.dates[key]) {
+  const key = xd.toDateString();
+  if (cache.dates.hasOwnProperty(key)) {
     return cache.dates[key];
   }
 
-  return cache.dates[key] = pDate(xd).format('D');
+  if (isIntlSupported) {
+    const options = {day: 'numeric'};
+    return cache.dates[key] = new Intl.DateTimeFormat('fa-IR', options).format(xd.toDate());
+  }
+
+  return cache.dates[key] = toPersian(pMoment(xd).jDate());
 }
 
 /**
@@ -87,9 +92,8 @@ function sameMonth(a, b, jalali = false) {
 
   if (!(a instanceof XDate && b instanceof XDate)) return false;
 
-  const key = a.toString() + b.toString();
-
-  if (cache.sameMonth[key]) {
+  const key = a.toDateString() + b.toDateString();
+  if (cache.sameMonth.hasOwnProperty(key)) {
     return cache.sameMonth[key];
   }
 
@@ -115,22 +119,31 @@ function isSameMonth(a, b, jalali = false) {
     // jDate has some issues to calculate days, but months are right and has better performance
     // Cache is provided to improve performance
 
-    a = jDate(a);
-    b = jDate(b);
-    return a.getFullYear() === b.getFullYear() &&
-      a.getMonth() === b.getMonth();
+    a = pMoment(a);
+    b = pMoment(b);
+    return a.jYear() === b.jYear() &&
+      a.jMonth() === b.jMonth();
   }
 
   return a.getFullYear() === b.getFullYear() &&
     a.getMonth() === b.getMonth();
 }
 
+
+function toXd(moment){
+  return new XDate(moment.year(), moment.month(), moment.date(), 0, 0, 0, true)
+}
+
 function month(xd, jalali = false) {
+
+  const key = xd.toDateString();
+  if(cache.months.hasOwnProperty(key)) return cache.months[key];
+
   const year = xd.getFullYear(), month = xd.getMonth();
   const days = new Date(year, month + 1, 0).getDate();
-  const firstDay = jalali ? pDate(xd).date(1) : new XDate(year, month, 1, 0, 0, 0, true);
-  const lastDay = jalali ? pDate(xd).endOf('month') : new XDate(year, month, days, 0, 0, 0, true);
-  return fromTo(firstDay, lastDay);
+  const firstDay = jalali ? toXd(pMoment(xd).startOf('jMonth')) : new XDate(year, month, 1, 0, 0, 0, true);
+  const lastDay = jalali ? toXd(pMoment(xd).endOf('jMonth')) : new XDate(year, month, days, 0, 0, 0, true);
+  return cache.months[key] = fromTo(firstDay, lastDay);
 }
 
 function fromTo(a, b) {
@@ -146,13 +159,13 @@ function pDiffMonths(a, b) {
 
   const isNegative = a.diffDays(b) < 0;
 
-  const fromDate = pDate(isNegative ? b : a).toLocale('en').date(1);
-  const toDate = pDate(isNegative ? a : b).toLocale('en').date(1);
+  const fromDate = pMoment(isNegative ? b : a);
+  const toDate = pMoment(isNegative ? a : b);
 
-  let fromMonth = fromDate.month();
-  let toMonth = toDate.month();
+  let fromMonth = fromDate.jMonth();
+  let toMonth = toDate.jMonth();
 
-  let yearsDiff = toDate.year() - fromDate.year();
+  let yearsDiff = toDate.jYear() - fromDate.jYear();
   let monthsDiff = 0;
 
   let targetMonth = yearsDiff ? 12 : toMonth;
@@ -178,7 +191,7 @@ function pDiffMonths(a, b) {
 
 module.exports = {
   pSetLocale,
-  pDate,
+  pFormat,
   sameMonth,
   month,
   pDiffMonths,

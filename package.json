@@ -1,6 +1,6 @@
 {
   "name": "react-native-calendars-persian",
-  "version": "1.20.2",
+  "version": "1.20.4",
   "main": "src/index.js",
   "description": "React Native Calendar Components + Jalali (Persian) Calendar Support",
   "scripts": {
@@ -19,7 +19,8 @@
   "dependencies": {
     "lodash.get": "^4.4.2",
     "lodash.isequal": "^4.5.0",
-    "persian-date": "^1.0.5",
+    "moment": "^2.22.2",
+    "moment-jalaali": "^0.7.4",
     "prop-types": "^15.5.10",
     "xdate": "^0.8.0"
   },

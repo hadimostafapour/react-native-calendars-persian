@@ -17,6 +17,8 @@ class CalendarList extends Component {
   static propTypes = {
     ...Calendar.propTypes,
 
+    footerComponent: PropTypes.func,
+
     // Max amount of months allowed to scroll to the past. Default = 50
     pastScrollRange: PropTypes.number,
 
@@ -65,7 +67,7 @@ class CalendarList extends Component {
     const date = parseDate(props.current) || XDate();
     for (let i = 0; i <= this.props.pastScrollRange + this.props.futureScrollRange; i++) {
       const rangeDate = date.clone().addMonths(i - this.props.pastScrollRange, true);
-      const rangeDateStr = this.props.jalali ? dateutils.pDate(rangeDate).format('MMMM YYYY') : rangeDate.toString('MMM yyyy');
+      const rangeDateStr = this.props.jalali ? dateutils.pFormat(rangeDate, 'jMMMM jYYYY') : rangeDate.toString('MMM yyyy');
       texts.push(rangeDateStr);
       /*
        * This selects range around current shown month [-0, +2] or [-1, +1] month for detail calendar rendering.
@@ -223,6 +225,7 @@ class CalendarList extends Component {
         showsHorizontalScrollIndicator={this.props.showScrollIndicator}
         scrollEnabled={this.props.scrollingEnabled}
         keyExtractor={(item, index) => String(index)}
+        ListFooterComponent={this.props.footerComponent}
         initialScrollIndex={this.state.openDate ? this.getMonthIndex(this.state.openDate) : false}
         getItemLayout={this.getItemLayout}
         scrollsToTop={this.props.scrollsToTop}
