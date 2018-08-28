@@ -459,6 +459,12 @@ An advanced agenda component that can display interactive listings for calendar 
 />
 ```
 
+## Alternatives
+#### react-native-general-calendars
+[Visit Repo](https://github.com/rghorbani/react-native-general-calendars)
+
+It's another fork of `react-native-calendars` that supports jalaali and totally re-implemented, it's using moment instead of xdate.
+
 ## Authors
 
 * [Tautvilas Mecinskas](https://github.com/tautvilas/) - Initial code - [@tautvilas](https://twitter.com/TautviIas)
