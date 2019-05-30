@@ -191,6 +191,7 @@ function pDiffMonths(a, b) {
 
 module.exports = {
   pSetLocale,
+  toPersian,
   pFormat,
   sameMonth,
   month,

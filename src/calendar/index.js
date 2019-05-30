@@ -4,9 +4,9 @@ import {
   ViewPropTypes
 } from 'react-native';
 import PropTypes from 'prop-types';
-
 import XDate from 'xdate';
 import dateutils from '../dateutils';
+import {toPersian} from '../persian/dateutils'
 import {xdateToData, parseDate} from '../interface';
 import styleConstructor from './style';
 import Day from './day/basic';
@@ -234,6 +234,16 @@ class Calendar extends Component {
   }
 
   renderWeekNumber (weekNumber) {
+    // change week number to persian calendar week number
+    if(this.props.jalali){
+      if(weekNumber > 0){
+        weekNumber -= 12;
+      }
+      if(weekNumber <=0){
+        weekNumber += 52;
+      }
+      weekNumber = toPersian(weekNumber);
+    }
     return <Day key={`week-${weekNumber}`} theme={this.props.theme} marking={{disableTouchEvent: true}} state='disabled'>{weekNumber}</Day>;
   }
 
