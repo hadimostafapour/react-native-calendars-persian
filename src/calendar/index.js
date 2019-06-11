@@ -49,7 +49,7 @@ class Calendar extends Component {
 
     // Hide month navigation arrows. Default = false
     hideArrows: PropTypes.bool,
-    // Display loading indicador. Default = false
+    // Display loading indicator. Default = false
     displayLoadingIndicator: PropTypes.bool,
     // Do not show days of other months in month page. Default = false
     hideExtraDays: PropTypes.bool,
@@ -78,7 +78,9 @@ class Calendar extends Component {
     // Handler which gets executed when press arrow icon left. It receive a callback can go back month
     onPressArrowLeft: PropTypes.func,
     // Handler which gets executed when press arrow icon left. It receive a callback can go next month
-    onPressArrowRight: PropTypes.func
+    onPressArrowRight: PropTypes.func,
+    // Display Calendar from Right to Left. Default = false
+    rtl: PropTypes.bool
   };
 
   constructor(props) {
@@ -249,6 +251,7 @@ class Calendar extends Component {
 
   renderWeek(days, id) {
     const week = [];
+    let rtlStyle = null;
     days.forEach((day, id2) => {
       week.push(this.renderDay(day, id2));
     }, this);
@@ -256,8 +259,14 @@ class Calendar extends Component {
     if (this.props.showWeekNumbers) {
       week.unshift(this.renderWeekNumber(days[days.length - 1].getWeek()));
     }
+    
+    if(this.props.rtl){
+      rtlStyle = {
+        flexDirection: "row-reverse"
+      }
+    }
 
-    return (<View style={this.style.week} key={id}>{week}</View>);
+    return (<View style={[this.style.week, rtlStyle]} key={id}>{week}</View>);
   }
 
   render() {
@@ -275,6 +284,7 @@ class Calendar extends Component {
         indicator = true;
       }
     }
+    
     return (
       <View style={[this.style.container, this.props.style]}>
         <CalendarHeader
