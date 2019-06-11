@@ -27,6 +27,11 @@ Since convert/compare dates cause performance issues; In order to solve this on 
   rtl={true}
 />
 ```
+### PersianCalendar
+
+<kbd>
+  <img src="https://github.com/ahmadi-akbar/react-native-calendars-persian/blob/master/PersianCalendarExample/PersianCalendarExample%20ScreenShot.png?raw=true">
+</kbd>
 
 ## Usage
 
