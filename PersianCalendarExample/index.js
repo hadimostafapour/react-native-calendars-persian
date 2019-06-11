@@ -56,7 +56,7 @@ export default class PersianCalendarExample extends Component {
         fridays[tempDate] = {
           customStyles: {
             text: {
-              fontSize: 32,
+              fontSize: 20,
               fontWeight: "600",
               color: "red"
             }

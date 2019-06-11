@@ -301,6 +301,7 @@ class Calendar extends Component {
           weekNumbers={this.props.showWeekNumbers}
           onPressArrowLeft={this.props.onPressArrowLeft}
           onPressArrowRight={this.props.onPressArrowRight}
+          rtl={this.props.rtl}
         />
         <View style={this.style.monthView}>{weeks}</View>
       </View>);
