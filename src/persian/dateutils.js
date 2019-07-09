@@ -1,10 +1,19 @@
 const XDate = require('xdate');
 const moment = require('moment-jalaali');
+moment.loadPersian({dialect: 'persian-modern'})
 
 const cache = {
   sameMonth: {},
   dates: {},
   months: {}
+};
+var pSetLocale = function () {
+
+  XDate.locales['fa'] = {
+    dayNamesShort: moment.weekdaysMin(),
+    monthNamesShort: moment.monthsShort(),
+    monthNames: moment.months()
+  };
 };
 
 let isIntlSupported = typeof Intl !== 'undefined' && typeof Intl.DateTimeFormat === 'function';
@@ -16,49 +25,6 @@ function pFormat(xd, format) {
 function pMoment(xd){
   return moment(xd.toDate());
 }
-
-var pSetLocale = function () {
-
-  XDate.locales['fa'] = {
-    dayNamesShort: [
-      'ی',
-      'د',
-      'س',
-      'چ',
-      'پ',
-      'ج',
-      'ش',
-    ],
-    monthNamesShort: [
-      'فرو',
-      'اردیبهشت',
-      'خرداد',
-      'تیر',
-      'شهریور',
-      'مرداد',
-      'مهر',
-      'آبان',
-      'آذر',
-      'دی',
-      'بهمن',
-      'اسفند',
-    ],
-    monthNames: [
-      'فرو',
-      'اردیبهشت',
-      'خرداد',
-      'تیر',
-      'شهریور',
-      'مرداد',
-      'مهر',
-      'آبان',
-      'آذر',
-      'دی',
-      'بهمن',
-      'اسفند',
-    ]
-  };
-};
 
 function toPersian(string){
   return (string + '').replace(/\d/g, function (i) {
@@ -191,6 +157,7 @@ function pDiffMonths(a, b) {
 
 module.exports = {
   pSetLocale,
+  toPersian,
   pFormat,
   sameMonth,
   month,

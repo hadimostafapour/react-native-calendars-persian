@@ -24,8 +24,14 @@ Since convert/compare dates cause performance issues; In order to solve this on 
 <Agenda
   jalali={true}
   firstDay={6}
+  rtl={true}
 />
 ```
+### PersianCalendar
+
+<kbd>
+  <img src="https://github.com/ahmadi-akbar/react-native-calendars-persian/blob/master/PersianCalendarExample/PersianCalendarExample%20ScreenShot.png?raw=true">
+</kbd>
 
 ## Usage
 
@@ -105,6 +111,8 @@ LocaleConfig.defaultLocale = 'fr';
   onPressArrowLeft={substractMonth => substractMonth()}
   // Handler which gets executed when press arrow icon left. It receive a callback can go next month
   onPressArrowRight={addMonth => addMonth()}
+  // Display Calendar from Right to Left. Default = false
+  rtl={false}
 />
 ```
 
@@ -130,7 +138,7 @@ Dot marking
 />
 ```
 
-You can customise a dot color for each day independently.
+You can customize a dot color for each day independently.
 
 Multi-Dot marking
 

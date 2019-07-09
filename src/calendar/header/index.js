@@ -84,6 +84,7 @@ class CalendarHeader extends Component {
     let leftArrow = <View />;
     let rightArrow = <View />;
     let weekDaysNames = weekDayNames(this.props.firstDay);
+    let rtlStyle = null;
     if (!this.props.hideArrows) {
       leftArrow = (
         <TouchableOpacity
@@ -125,6 +126,12 @@ class CalendarHeader extends Component {
         ? pFormat(this.props.month, this.props.jalaliMonthFormat)
         : this.props.month.toString(this.props.monthFormat);
 
+    if(this.props.rtl){
+      rtlStyle = {
+        flexDirection: "row-reverse"
+      }
+    }
+
     return (
       <View>
         <View style={this.style.header}>
@@ -139,7 +146,7 @@ class CalendarHeader extends Component {
         </View>
         {
           !this.props.hideDayNames &&
-          <View style={this.style.week}>
+          <View style={[this.style.week, rtlStyle]}>
             {this.props.weekNumbers && <Text allowFontScaling={false} style={this.style.dayHeader}></Text>}
             {weekDaysNames.map((day, idx) => (
               <Text allowFontScaling={false} key={idx} accessible={false} style={this.style.dayHeader} numberOfLines={1} importantForAccessibility='no'>{day}</Text>

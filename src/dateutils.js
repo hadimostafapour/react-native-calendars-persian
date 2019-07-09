@@ -1,14 +1,10 @@
 const XDate = require('xdate');
 const PersianDateUtils = require('./persian/dateutils');
-const {pFormat, pDateDay, pSetLocale, pDiffMonths, sameMonth, month} = PersianDateUtils;
+const moment = require('moment-jalaali');
+
+const {pFormat, pDateDay, pSetLocale,pDiffMonths, sameMonth, month} = PersianDateUtils;
 
 pSetLocale();
-
-// function sameMonth(a, b) {
-//   return a instanceof XDate && b instanceof XDate &&
-//     a.getFullYear() === b.getFullYear() &&
-//     a.getMonth() === b.getMonth();
-// }
 
 function sameDate(a, b) {
   return a instanceof XDate && b instanceof XDate &&
@@ -33,17 +29,6 @@ function fromTo(a, b) {
   }
   return days;
 }
-
-// function month(xd) {
-//   const year = xd.getFullYear(), month = xd.getMonth();
-//   const days = new Date(year, month + 1, 0).getDate();
-//
-//   const firstDay = new XDate(year, month, 1, 0, 0, 0, true);
-//   const lastDay = new XDate(year, month, days, 0, 0, 0, true);
-//
-//   return fromTo(firstDay, lastDay);
-// }
-
 function weekDayNames(firstDayOfWeek = 0) {
   let weekDaysNames = XDate.locales[XDate.defaultLocale].dayNamesShort;
   const dayShift = firstDayOfWeek % 7;
